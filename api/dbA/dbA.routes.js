@@ -1,5 +1,5 @@
 const express = require('express')
-const { requireAuth, requireAdmin } = require('../../middlewares/requireAuth.middleware')
+// const { requireAuth, requireAdmin } = require('../../middlewares/requireAuth.middleware')
 const { log } = require('../../middlewares/logger.middleware')
 const { getDbAs, getDbAById, addDbA, updateDbA, removeDbA, addDbAMsg, removeDbAMsg,runUpdateWorker } = require('./dbA.controller')
 const router = express.Router()
@@ -17,7 +17,7 @@ router.delete('/:id', removeDbA)
 // router.delete('/:id', requireAuth, removeDbA)
 // router.delete('/:id', requireAuth, requireAdmin, removeDbA)
 
-router.post('/:id/msg', requireAuth, addDbAMsg)
-router.delete('/:id/msg/:msgId', requireAuth, removeDbAMsg)
+// router.post('/:id/msg', requireAuth, addDbAMsg)
+// router.delete('/:id/msg/:msgId', requireAuth, removeDbAMsg)
 
 module.exports = router

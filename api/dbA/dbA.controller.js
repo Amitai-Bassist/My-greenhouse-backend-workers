@@ -2,11 +2,9 @@ const dbAService = require('./dbA.service.js')
 
 const logger = require('../../services/logger.service')
 
-var isWorkerOn = true
 
 async function runUpdateWorker(){
-  if (!isWorkerOn ) return
-  console.log (`starting worker`)
+  console.log(`starting worker for dbA`)
   var delay = 500
   try {
     const update = await dbAService.update()

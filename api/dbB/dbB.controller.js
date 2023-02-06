@@ -1,25 +1,31 @@
-const dbAService = require('./dbA.service.js')
+const dbBService = require('./dbB.service.js')
 
 const logger = require('../../services/logger.service')
+const { log } = require('../../middlewares/logger.middleware.js')
 
-var isWorkerOn = true
-runUpdateWorker()
 
-async function runUpdateWorker(){
-  if (!isWorkerOn ) return
-  console.log (`starting worker`)
+
+
+async function runUpdateWorker(counterN = 1){
+  console.log (`starting worker for dbB`,typeof(counterN))
+  let counter = (typeof(counterN) === 'object') ? 1 : counterN
   var delay = 500
-  try {
-    const update = await dbAService.update()
-  }catch (err){
-    console.log (`Failed updaiting`, err)
-    delay = 10
-  }finally {
-    setTimeout(runUpdateWorker , delay)
-  }
+    try {
+      if (counter === 9 || counter === 9.5){
+        const selfUpdate = await dbBService.update()
+        console.log('10%- self updating')
+      }else {
+        const dbA = await dbBService.queryFromDbA()
+        const selfUpdate = await dbBService.update(dbA)
+      }
+    }catch (err){
+      console.log (`Failed updaiting`, err)
+      delay = 10000
+    }finally {
+      var newCounter = counter + 0.5
+      setTimeout(()=>{runUpdateWorker(newCounter)} , delay)
+    }
 }
-
-
 
 async function getDbAs(req, res) {
   try {
@@ -84,37 +90,6 @@ async function removeDbA(req, res) {
   }
 }
 
-async function addDbAMsg(req, res) {
-  const {loggedinUser} = req
-  try {
-    const dbAId = req.params.id
-    const msg = {
-      txt: req.body.txt,
-      by: loggedinUser
-    }
-    const savedMsg = await dbAService.addDbAMsg(dbAId, msg)
-    res.json(savedMsg)
-  } catch (err) {
-    logger.error('Failed to update dbA', err)
-    res.status(500).send({ err: 'Failed to update dbA' })
-
-  }
-}
-
-async function removeDbAMsg(req, res) {
-  const {loggedinUser} = req
-  try {
-    const dbAId = req.params.id
-    const {msgId} = req.params
-
-    const removedId = await dbAService.removeDbAMsg(dbAId, msgId)
-    res.send(removedId)
-  } catch (err) {
-    logger.error('Failed to remove dbA msg', err)
-    res.status(500).send({ err: 'Failed to remove dbA msg' })
-
-  }
-}
 
 module.exports = {
   getDbAs,
@@ -122,6 +97,5 @@ module.exports = {
   addDbA,
   updateDbA,
   removeDbA,
-  addDbAMsg,
-  removeDbAMsg
+  runUpdateWorker
 }

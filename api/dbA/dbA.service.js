@@ -54,9 +54,9 @@ async function add(dbA) {
 async function update(dbA = {_id:'63e09f2e35bff160863839d5'}) {
     try {
         const dbAToSave = {
-            Temperature : utilService.getRandomInt(20,30),
-            Humidity : utilService.getRandomInt(0,100),
-            Radiation : utilService.getRandomInt(500,900),
+            temperature : utilService.getRandomInt(20,30),
+            humidity : utilService.getRandomInt(0,100),
+            radiation : utilService.getRandomInt(500,900),
         }
         const collection = await dbService.getCollection('records')
         await collection.updateOne({ _id: ObjectId(dbA._id) }, { $set: dbAToSave })

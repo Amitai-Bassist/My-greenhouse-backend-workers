@@ -2,8 +2,13 @@ const dbAService = require('./dbA.service.js')
 
 const logger = require('../../services/logger.service')
 
+var workerAIsOn = true
 
 async function runUpdateWorker(){
+  if (!workerAIsOn){
+    console.log('stopping')
+    return
+  } 
   console.log(`starting worker for dbA`)
   var delay = 500
   try {
@@ -16,7 +21,15 @@ async function runUpdateWorker(){
   }
 }
 
+async function stopUpdateWorker(){
+  workerAIsOn = false
+}
 
+function startWorker(){
+  workerAIsOn = true
+  console.log('starting')
+  runUpdateWorker()
+}
 
 async function getDbAs(req, res) {
   try {
@@ -121,5 +134,7 @@ module.exports = {
   removeDbA,
   addDbAMsg,
   removeDbAMsg,
-  runUpdateWorker
+  runUpdateWorker,
+  stopUpdateWorker,
+  startWorker
 }

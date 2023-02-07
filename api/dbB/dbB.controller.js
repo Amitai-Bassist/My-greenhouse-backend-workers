@@ -4,9 +4,13 @@ const logger = require('../../services/logger.service')
 const { log } = require('../../middlewares/logger.middleware.js')
 
 
-
+var workerBIsOn = true
 
 async function runUpdateWorker(counterN = 1){
+  if (!workerBIsOn){
+    console.log('stopping')
+    return
+  } 
   console.log (`starting worker for dbB`,typeof(counterN))
   let counter = (typeof(counterN) === 'object') ? 1 : counterN
   var delay = 500
@@ -25,6 +29,15 @@ async function runUpdateWorker(counterN = 1){
       var newCounter = counter + 0.5
       setTimeout(()=>{runUpdateWorker(newCounter)} , delay)
     }
+}
+
+async function stopUpdateWorkerB(){
+  workerBIsOn = false
+}
+
+function startWorker(){
+  workerBIsOn = true
+  runUpdateWorker(1)
 }
 
 async function getDbAs(req, res) {
@@ -97,5 +110,7 @@ module.exports = {
   addDbA,
   updateDbA,
   removeDbA,
-  runUpdateWorker
+  runUpdateWorker,
+  stopUpdateWorkerB,
+  startWorker
 }

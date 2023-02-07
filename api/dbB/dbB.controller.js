@@ -6,18 +6,20 @@ const { log } = require('../../middlewares/logger.middleware.js')
 
 var workerBIsOn = true
 
-async function runUpdateWorker(counterN = 1){
+async function runUpdateWorker(counterN = 0.5){
   if (!workerBIsOn){
     console.log('stopping')
     return
   } 
   console.log (`starting worker for dbB`,typeof(counterN))
-  let counter = (typeof(counterN) === 'object') ? 1 : counterN
+  let counter = (typeof(counterN) === 'object') ? 0 : counterN
   var delay = 500
     try {
-      if (counter === 9 || counter === 9.5){
-        const selfUpdate = await dbBService.update()
-        console.log('10%- self updating')
+      if (counter === 20 || counter % 70 === 0){
+        delay = 10000
+        console.log('no connection')
+        // const selfUpdate = await dbBService.update()
+        // console.log('10%- self updating')
       }else {
         const dbA = await dbBService.queryFromDbA()
         const selfUpdate = await dbBService.update(dbA)
@@ -37,7 +39,7 @@ async function stopUpdateWorkerB(){
 
 function startWorker(){
   workerBIsOn = true
-  runUpdateWorker(1)
+  runUpdateWorker(0.5)
 }
 
 async function getDbAs(req, res) {

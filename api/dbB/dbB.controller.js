@@ -16,7 +16,7 @@ async function runUpdateWorker(counterN = 0.5){
   var delay = 500
     try {
       if (counter === 20 || counter % 70 === 0){
-        delay = 10000
+        delay = 20000
         console.log('no connection')
         // const selfUpdate = await dbBService.update()
         // console.log('10%- self updating')

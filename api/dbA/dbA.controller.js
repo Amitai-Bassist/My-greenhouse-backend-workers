@@ -21,16 +21,24 @@ async function runUpdateWorker(){
   }
 }
 
-async function stopUpdateWorker(){
-  workerAIsOn = false
-  res.send('ok')
+function stopUpdateWorker(){
+  try{
+    workerAIsOn = false
+    res.send('ok')
+  } catch (err){
+    res.status(500).send({ err: 'Failed to stop worker' })
+  }
 }
 
 function startWorker(){
-  workerAIsOn = true
-  console.log('starting')
-  runUpdateWorker()
-  res.send('ok')
+  try{
+    workerAIsOn = true
+    console.log('starting')
+    runUpdateWorker()
+    res.send('ok')
+  }catch (err){
+    res.status(500).send({ err: 'Failed to start worker' })
+  }
 }
 
 async function getDbAs(req, res) {

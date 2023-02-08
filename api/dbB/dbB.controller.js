@@ -36,6 +36,7 @@ async function runUpdateWorker(counterN = 0.5){
 function stopUpdateWorkerB(){
   try{
   workerBIsOn = false
+  res.send('ok')
 }catch (err){
   res.status(500).send({ err: 'Failed to stop worker B' })
 }
@@ -45,6 +46,7 @@ function startWorker(){
   try{
     workerBIsOn = true
     runUpdateWorker(0.5)
+    res.send('ok')
   }catch (err){
     res.status(500).send({ err: 'Failed to start worker B' })
   }

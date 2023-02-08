@@ -51,7 +51,7 @@ async function add(dbA) {
     }
 }
 
-async function update(dbA = {_id:'63e09f2e35bff160863839d5'}) {
+async function update(dbA = {_id:'63e33c2536e9a97bfa9173d1'}) {
     try {
         const dbAToSave = {
             temperature : utilService.getRandomInt(20,30),

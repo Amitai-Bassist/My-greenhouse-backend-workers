@@ -11,12 +11,12 @@ async function runUpdateWorker(counterN = 0.5){
     console.log('stopping')
     return
   } 
-  console.log (`starting worker for dbB`,typeof(counterN))
+  console.log (`starting worker for dbB`)
   let counter = (typeof(counterN) === 'object') ? 0 : counterN
   var delay = 500
     try {
-      if (counter === 20 || counter % 70 === 0){
-        delay = 20000
+      if (counter === 20 || counter % 30 === 0){
+        delay = 10000
         console.log('no connection')
         // const selfUpdate = await dbBService.update()
         // console.log('10%- self updating')

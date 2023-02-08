@@ -76,7 +76,7 @@ async function update(dbA) {
             }
         }
         const collection = await dbBService.getCollection('records')
-        await collection.updateOne({ _id: ObjectId('63e09f0b35bff160863839d2') }, { $set: dbBToSave })
+        await collection.updateOne({ _id: ObjectId('63e33d2d36e9a97bfa9173d2') }, { $set: dbBToSave })
         console.log('updated')
         return dbA
     } catch (err) {

@@ -23,6 +23,7 @@ async function runUpdateWorker(){
 
 async function stopUpdateWorker(){
   workerAIsOn = false
+  res.send('ok')
 }
 
 function startWorker(){

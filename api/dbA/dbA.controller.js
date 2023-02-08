@@ -29,6 +29,7 @@ function startWorker(){
   workerAIsOn = true
   console.log('starting')
   runUpdateWorker()
+  res.send('ok')
 }
 
 async function getDbAs(req, res) {

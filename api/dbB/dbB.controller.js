@@ -33,13 +33,21 @@ async function runUpdateWorker(counterN = 0.5){
     }
 }
 
-async function stopUpdateWorkerB(){
+function stopUpdateWorkerB(){
+  try{
   workerBIsOn = false
+}catch (err){
+  res.status(500).send({ err: 'Failed to stop worker B' })
+}
 }
 
 function startWorker(){
-  workerBIsOn = true
-  runUpdateWorker(0.5)
+  try{
+    workerBIsOn = true
+    runUpdateWorker(0.5)
+  }catch (err){
+    res.status(500).send({ err: 'Failed to start worker B' })
+  }
 }
 
 async function getDbAs(req, res) {

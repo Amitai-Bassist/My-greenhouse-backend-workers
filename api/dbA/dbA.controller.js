@@ -37,7 +37,7 @@ function startWorker(){
     runUpdateWorker()
     res.send('ok')
   }catch (err){
-    res.status(500).send({ err: 'Failed to start worker' })
+    res.status(500).send({ err: 'Failed to start worker A' })
   }
 }
 

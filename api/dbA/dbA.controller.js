@@ -2,7 +2,7 @@ const dbAService = require('./dbA.service.js')
 
 const logger = require('../../services/logger.service')
 
-var workerAIsOn = true
+var workerAIsOn = false
 
 async function runUpdateWorker(){
   if (!workerAIsOn){
@@ -32,10 +32,14 @@ function stopUpdateWorker(){
 
 function startWorker(){
   try{
-    workerAIsOn = true
-    console.log('starting')
-    runUpdateWorker()
-    res.send('ok')
+    if (workerAIsOn === true){
+      res.send('allredy on')
+      return
+    } else{
+      workerAIsOn = true
+      console.log('starting')
+      runUpdateWorker()
+    }
   }catch (err){
     res.status(500).send({ err: 'Failed to start worker A' })
   }

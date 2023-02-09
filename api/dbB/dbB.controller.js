@@ -4,7 +4,7 @@ const logger = require('../../services/logger.service')
 const { log } = require('../../middlewares/logger.middleware.js')
 
 
-var workerBIsOn = true
+var workerBIsOn = false
 
 async function runUpdateWorker(counterN = 0.5){
   if (!workerBIsOn){
@@ -44,9 +44,14 @@ function stopUpdateWorkerB(){
 
 function startWorker(){
   try{
-    workerBIsOn = true
-    runUpdateWorker(0.5)
-    res.send('ok')
+    if (workerBIsOn === true){
+      res.send('allredy on')
+      return
+    } else {
+      workerBIsOn = true
+      runUpdateWorker(0.5)
+      res.send('ok')
+    }
   }catch (err){
     res.status(500).send({ err: 'Failed to start worker B' })
   }

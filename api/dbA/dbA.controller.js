@@ -33,6 +33,7 @@ function stopUpdateWorker(){
 function startWorker(){
   try{
     if (workerAIsOn === true){
+      console.log('request to start but- already on')
       res.send('allredy on')
       return
     } else{

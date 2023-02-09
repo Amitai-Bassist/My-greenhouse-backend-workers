@@ -45,6 +45,7 @@ function stopUpdateWorkerB(){
 function startWorker(){
   try{
     if (workerBIsOn === true){
+      console.log('request to start but- already on')
       res.send('allredy on')
       return
     } else {
